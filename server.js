@@ -1,4 +1,6 @@
 var express = require("express");
+var methodOverride = require("method-override")
+require("dotenv").config();
 
 var PORT = process.env.PORT || 3000;
 var app = express();
@@ -6,6 +8,7 @@ var app = express();
 app.use(express.static("public"));
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
+app.use(methodOverride("_method"));
 
 var exphbs = require("express-handlebars");
 app.engine("handlebars", exphbs({ defaultLayout: "main" }));

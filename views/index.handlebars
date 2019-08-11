@@ -1,38 +1,48 @@
-<h1>Cats!</h1>
-
-<h2>Cats that are not sleepy!</h2>
-
-<ul>
-  {{#each cats}}
-    {{#unless sleepy}}
-      {{> cats/cat-block sleep=true}}
-    {{/unless}}
-  {{/each}}
-</ul>
-
-<h2>Cats that are sleepy!</h2>
-
-<ul>
-  {{#each cats}}
-    {{#if sleepy}}
-      {{> cats/cat-block sleep=false}}
-    {{/if}}
-  {{/each}}
-</ul>
-
-<h2>Add a Cat</h2>
-<form class="create-form">
-
-  <div class="form-group">
-    <label for="ca">Cat Name:</label>
-    <input type="text" id="ca" name="name">
+<div class="jumbotron">
+  <div class="container">
+    <h1 class="display-4">Eat the Burger</h1>
+    <p class="lead"><i>Keep track of your burger eating progress here!</i></p>
+    <form action="/burgers/create" method="POST">
+      <div class="form-group">
+        <input class="form-control" name="burger_name" type="text" placeholder="Burger Name">
+        <br>
+        <button type="submit" class="btn btn-success">Add Burger</button>
+      </div>
+    </form>
   </div>
+</div>
 
-  <div class="form-group">
-    <label for="slee">Sleepy?</label><br>
-    <input type="radio" name="sleepy" value="1" checked> Sleepy!<br>
-    <input type="radio" name="sleepy" value="0"> Awake
+<div class="container text-center">
+  <div class="row">
+    <div class="col-md-6">
+      <h2>Undevoured Burgers</h2>
+      {{#each burger}}
+      {{#unless this.devoured}}
+
+      <form action="/burgers/update/{{this.id}}?_method=PUT" method="POST">
+        <div class="form-group">
+          <button type="submit" class="btn btn-danger" name="devoured" value="1">{{burger_name}}</button>
+        </div>
+      </form>
+
+      {{/unless}}
+      {{/each}}
+    </div>
+
+
+
+    <div class="col-md-6">
+      <h2>Devoured Burgers</h2>
+      {{#each burger}}
+      {{#if this.devoured}}
+
+      <div>
+        <button type="button" class="btn btn-warning">{{burger_name}}</button>
+      </div>
+
+      {{/if}}
+      {{/each}}
+    </div>
+
   </div>
-
-  <button type="submit">Add Cat</button>
-</form>
+</div>
